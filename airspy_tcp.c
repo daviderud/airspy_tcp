@@ -279,8 +279,11 @@ static void *command_worker(void *arg)
 		case 0x03:
 			if(verbose) printf("set gain mode %d : not implemented \n", ntohl(cmd.param));
 		case 0x04:
-			if(verbose) printf("set gain : %d\n", ntohl(cmd.param));
+			if(verbose) printf("set gain  (and disable AGCs) : %d\n", ntohl(cmd.param));
 			airspy_set_linearity_gain(dev,(ntohl(cmd.param)+250)/37);
+			if(verbose) printf(" -- corresponding to gain by index : %d\n", (ntohl(cmd.param)+250)/37);
+			if((ntohl(cmd.param)+250)/37 > 21)
+				printf(" -- MAXIMUM GAIN ALREADY REACHED (at index 21).\n");
 			break;
 		case 0x05:
 			if(verbose) printf("set freq correction %d\n",ntohl(cmd.param));
@@ -293,6 +296,7 @@ static void *command_worker(void *arg)
 			if(verbose) printf("set test mode %d: not impmemented\n",ntohl(cmd.param));
 			break;
 		case 0x08:
+			if(verbose) printf("set agc %d (lna AGC and mixer AGC)\n",ntohl(cmd.param));		
 			set_agc(ntohl(cmd.param));
 			break;
 		case 0x09:
@@ -308,8 +312,10 @@ static void *command_worker(void *arg)
 			if(verbose) printf("set tuner xtal %d : not implemented\n",ntohl(cmd.param));
 			break;
 		case 0x0d:
-			if(verbose) printf("set tuner gain by index %d \n", ntohl(cmd.param));
+			if(verbose) printf("set tuner gain by index (and disable AGCs) %d \n", ntohl(cmd.param));
 			airspy_set_linearity_gain(dev,ntohl(cmd.param));
+			if(ntohl(cmd.param) > 21)
+				printf(" -- MAXIMUM GAIN ALREADY REACHED (at index 21).\n");
 			break;
 		case 0x0e:
 			if(verbose) printf("set bias tee %d\n", ntohl(cmd.param));
