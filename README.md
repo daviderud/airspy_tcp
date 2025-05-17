@@ -9,7 +9,7 @@ As the rtl_tcp protocol is only 8 bits IQ, man will loose the major advantage of
 2. As it's opensource, you could compile it on any Linux (and perhaps other UNIXes) server.
 
 Notes :
- - I tried it with gqrx and sdrangelove frontend only. Other tests are welcome.
+ - Tried it with: gqrx, sdrangelove, GNU Radio Companion "RTL-SDR source" block, SDR++ Davide's Mod (https://github.com/daviderud/SDRPlusPlus). Other tests are welcome.
  - The rtl_tcp frontend client must use only the two supported sampling rates for the Airspy SDR. Others sampling rates are not supported.
  - It should work with Airspy Mini too, but it has not been tested.
 
